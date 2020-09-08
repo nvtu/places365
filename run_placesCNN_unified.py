@@ -16,7 +16,6 @@ from dataclasses import dataclass
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-print(current_dir)
 
  # hacky way to deal with the Pytorch 1.0 update
 def recursion_change_bn(module):
@@ -231,6 +230,8 @@ if __name__ == '__main__':
     os.system('wget %s -q -O test.jpg' % img_url)
 
     attribute_output_folder_path = 'Attributes'
+    if not os.path.exists(attribute_output_folder_path):
+        os.makedirs(attribute_output_folder_path)
     attribute_feat_output_folder = os.path.join(attribute_output_folder_path, 'feat')
     if not os.path.exists(attribute_feat_output_folder):
         os.makedirs(attribute_feat_output_folder)
@@ -239,6 +240,8 @@ if __name__ == '__main__':
         os.makedirs(attribute_pred_output_folder)
 
     category_output_folder_path = 'Categories'
+    if not os.path.exists(category_output_folder_path):
+        os.makedirs(category_output_folder_path)
     category_feat_output_folder = os.path.join(category_output_folder_path, 'feat')
     if not os.path.exists(category_feat_output_folder):
         os.makedirs(category_feat_output_folder)
@@ -265,21 +268,6 @@ if __name__ == '__main__':
         category_pred_output_path = os.path.join(category_pred_output_folder, 'test.txt'),
         output_CAMs = True,
         CAMs_output_path = os.path.join(CAMs_output_path, 'test.jpg')
-    )
-
-    extract_placeCNN_feature(params, model)
-
-    params = ExtractPlaceCNNFeatureParams(
-        image_file_path = 'profile_picture.jpg',
-        raw_feat_output_path = os.path.join(raw_output_folder_path, 'profile_picture.npy'),
-        output_attribute_feat = True, 
-        attribute_feat_output_path = os.path.join(attribute_feat_output_folder, 'profile_picture.npy'),
-        attribute_pred_output_path = os.path.join(attribute_pred_output_folder, 'profile_picture.txt'),
-        output_category_feat = True,
-        category_feat_output_path = os.path.join(category_feat_output_folder, 'profile_picture.npy'),
-        category_pred_output_path = os.path.join(category_pred_output_folder, 'profile_picture.txt'),
-        output_CAMs = True,
-        CAMs_output_path = os.path.join(CAMs_output_path, 'profile_picture.jpg')
     )
 
     extract_placeCNN_feature(params, model)
